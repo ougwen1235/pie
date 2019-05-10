@@ -173,52 +173,364 @@ The letters in brackets indicate:
 
 | Function          | String | Number | Struct | Maps | Big-O    | Description |
 | ----------------- | :----: | :----: | :----: | :--: | :------: | ----------- |
-| `Abs`             |        | ✓      |        |      | n        | Abs will return the absolute value of all values in the slice.
-| `All`             | ✓      | ✓      | ✓      |      | n        | All will return true if all callbacks return true. If the list is empty then true is always returned. |
-| `Any`             | ✓      | ✓      | ✓      |      | n        | Any will return true if any callbacks return true. If the list is empty then false is always returned. |
-| `Append`          | ✓      | ✓      | ✓      |      | n        | A new slice with the elements appended to the end. |
-| `AreSorted`       | ✓      | ✓      |        |      | n        | Check if the slice is already sorted. |
-| `AreUnique`       | ✓      | ✓      |        |      | n        | Check if the slice contains only unique elements. |
-| `Average`         |        | ✓      |        |      | n        | The average (mean) value, or a zeroed value. |
-| `Bottom`          | ✓      | ✓      | ✓      |      | n        | Gets n elements from bottom. |
-| `Contains` (E)    | ✓      | ✓      | ✓      |      | n        | Check if the value exists in the slice. |
-| `Diff` (E)        | ✓      | ✓      | ✓      |      | n²       | Diff returns the elements that needs to be added or removed from the first slice to have the same elements in the second slice. |
-| `Each`            | ✓      | ✓      | ✓      |      | n        | Perform an action on each element. |
-| `Extend`          | ✓      | ✓      | ✓      |      | n        | A new slice with the elements from each slice appended to the end. |
-| `Filter`          | ✓      | ✓      | ✓      |      | n        | A new slice containing only the elements that returned true from the condition. |
-| `FilterNot`       | ✓      | ✓      | ✓      |      | n        | A new slice containing only the elements that returned false from the condition. |
-| `First`           | ✓      | ✓      | ✓      |      | 1        | The first element, or a zeroed value. |
-| `FirstOr`         | ✓      | ✓      | ✓      |      | 1        | The first element, or a default value. |
-| `Float64s` (S)    | ✓      | ✓      | ✓      |      | n        | Transforms each element into a float64. |
-| `Intersect`       | ✓      | ✓      |        |      | n        | Intersect returns elements which exists in all slices. |
-| `Ints` (S)        | ✓      | ✓      | ✓      |      | n        | Transforms each element into an int. |
-| `Join`            | ✓      |        |        |      | n        | A string from joining each of the elements. |
-| `JSONString`      | ✓      | ✓      | ✓      |      | n        | The JSON encoded string. |
-| `Keys`            |        |        |        | ✓    | n        | Returns all keys in the map (in random order). |
-| `Last`            | ✓      | ✓      | ✓      |      | 1        | The last element, or a zeroed value. |
-| `LastOr`          | ✓      | ✓      | ✓      |      | 1        | The last element, or a default value. |
-| `Len`             | ✓      | ✓      | ✓      |      | 1        | Number of elements. |
-| `Map`	            | ✓      | ✓      | ✓      |      | n        | A new slice where each element has been mapped (transformed). |
-| `Max`             | ✓      | ✓      |        |      | n        | The maximum value, or a zeroes value. |
-| `Median`          |        | ✓      |        |      | n⋅log(n) | Median returns the value separating the higher half from the lower half of a data sample. |
-| `Min`             | ✓      | ✓      |        |      | n        | The minimum value, or a zeroed value. |
-| `Product`         |        | ✓      |        |      | n        | Product of all elements. |
-| `Random`          | ✓      | ✓      | ✓      |      | 1        | Select a random element, or a zeroed value if empty. |
-| `Reduce`          | ✓      | ✓      |        |      | n        | Continously apply a function to the slice (left to right), reducing it to a single value. |
-| `Reverse`         | ✓      | ✓      | ✓      |      | n        | Reverse elements. |
-| `Send`            | ✓      | ✓      | ✓      |      | n        | Send all element to channel. |
-| `Sequence`        |      | ✓      |        |      | n        | Generates sequence of numbers. |
-| `SequenceUsing`        | ✓      | ✓      | ✓       |      | n        | Generates new sequence of elements in range using function which will be creator. |
-| `Shuffle`         | ✓      | ✓      | ✓      |      | n        | Returns a new shuffled slice. |
-| `Sort`            | ✓      | ✓      |        |      | n⋅log(n) | Return a new sorted slice. |
-| `SortStableUsing` | ✓      |        | ✓      |      | n⋅log(n) | Return a new sorted slice, using custom comparator, keeping the original order of equal elements. |
-| `SortUsing`       | ✓      |        | ✓      |      | n⋅log(n) | Return a new sorted slice, using custom comparator. |
-| `Strings` (S)     | ✓      | ✓      | ✓      |      | n        | Transforms each element into a string. |
-| `Sum`             |        | ✓      |        |      | n        | Sum (total) of all elements. |
-| `Top`             | ✓      | ✓      | ✓      |      | n        | Gets several elements from top(head of slice).|
-| `ToStrings`       | ✓      | ✓      | ✓      |      | n        | Transforms each element to a string. |
-| `Unique`          | ✓      | ✓      |        |      | n        | Return a new slice with only unique elements. |
-| `Values`          |        |        |        | ✓    | n        | Returns all values in the map (in random order). |
+| `Abs`             |        | ✓      |        |      | n        | Abs is a function which returns the absolute value of all the elements in the slice.  |
+| `All`             | ✓      | ✓      | ✓      |      | n        | All will return true if all callbacks return true. It follows the same logic as the all() function in Python.  |
+| `Any`             | ✓      | ✓      | ✓      |      | n        | Any will return true if any callbacks return true. It follows the same logic as the any() function in Python.  |
+| `Append`          | ✓      | ✓      | ✓      |      | n        | Append will return a new slice with the elements appended to the end.  |
+| `AreSorted`       | ✓      | ✓      |        |      | n        | AreSorted will return true if the slice is already sorted. It is a wrapper for sort.SliceTypeAreSorted.  |
+| `AreUnique`       | ✓      | ✓      |        |      | n        | AreUnique will return true if the slice contains elements that are all different (unique) from each other.  |
+| `Average`         |        | ✓      |        |      | n        | Average is the average of all of the elements, or zero if there are no elements.  |
+| `Bottom`          | ✓      | ✓      | ✓      |      | n        | Bottom will return n elements from bottom  |
+| `Contains`        | ✓      | ✓      | ✓      |      | n        | Contains returns true if the element exists in the slice.  |
+| `Diff`            | ✓      | ✓      | ✓      |      | n²       | Diff returns the elements that needs to be added or removed from the first slice to have the same elements in the second slice.  |
+| `Each`            | ✓      | ✓      | ✓      |      | n        | Each is more condensed version of Transform that allows an action to happen on each elements and pass the original slice on.  |
+| `Extend`          | ✓      | ✓      | ✓      |      | n        | Extend will return a new slice with the slices of elements appended to the end.  |
+| `Filter`          | ✓      | ✓      | ✓      |      | n        | Filter will return a new slice containing only the elements that return true from the condition. The returned slice may contain zero elements (nil).  |
+| `FilterNot`       | ✓      | ✓      | ✓      |      | n        | FilterNot works the same as Filter, with a negated condition. That is, it will return a new slice only containing the elements that returned false from the condition. The returned slice may contain zero elements (nil).  |
+| `First`           | ✓      | ✓      | ✓      |      | 1        | First returns the first element, or zero. Also see FirstOr().  |
+| `FirstOr`         | ✓      | ✓      | ✓      |      | 1        | FirstOr returns the first element or a default value if there are no elements.  |
+| `Float64s`        | ✓      | ✓      | ✓      |      | n        | Float64s transforms each element to a float64.  |
+| `Intersect`       | ✓      | ✓      |        |      | n        | Intersect returns items that exist in all lists.  |
+| `Ints`            | ✓      | ✓      | ✓      |      | n        | Ints transforms each element to an integer.  |
+| `Join`            | ✓      |        |        |      | n        | Join returns a string from joining each of the elements.  |
+| `JSONString`      | ✓      | ✓      | ✓      |      | n        | JSONString returns the JSON encoded array as a string.  |
+| `Keys`            |        |        |        | ✓    | n        | Keys returns the keys in the map. All of the items will be unique.  |
+| `Last`            | ✓      | ✓      | ✓      |      | 1        | Last returns the last element, or zero. Also see LastOr().  |
+| `LastOr`          | ✓      | ✓      | ✓      |      | 1        | LastOr returns the last element or a default value if there are no elements.  |
+| `Len`             | ✓      | ✓      | ✓      |      | 1        | Len returns the number of elements.  |
+| `Map`             | ✓      | ✓      | ✓      |      | n        | Map will return a new slice where each element has been mapped (transformed). The number of elements returned will always be the same as the input.  |
+| `Max`             | ✓      | ✓      |        |      | n        | Max is the maximum value, or zero.  |
+| `Median`          |        | ✓      |        |      | n⋅log(n) | Median returns the value separating the higher half from the lower half of a data sample.  |
+| `Min`             | ✓      | ✓      |        |      | n        | Min is the minimum value, or zero.  |
+| `Product`         |        | ✓      |        |      | n        | Product is the product of all of the elements.  |
+| `Random`          | ✓      | ✓      | ✓      |      | 1        | Random returns a random element by your rand.Source, or zero  |
+| `Reduce`          | ✓      | ✓      |        |      | n        | Reduce continually applies the provided function over the slice. Reducing the elements to a single value.  |
+| `Reverse`         | ✓      | ✓      | ✓      |      | n        | Reverse returns a new copy of the slice with the elements ordered in reverse. This is useful when combined with Sort to get a descending sort order:  |
+| `Send`            | ✓      | ✓      | ✓      |      | n        | Send sends elements to channel in normal act it sends all elements but if func canceled it can be less  |
+| `Sequence`        |        | ✓      |        |      | n        | Sequence generates all numbers in range or returns nil if params invalid  |
+| `SequenceUsing`   | ✓      | ✓      | ✓      |      | n        | SequenceUsing generates slice in range using creator function  |
+| `Shuffle`         | ✓      | ✓      | ✓      |      | n        | Shuffle returns shuffled slice by your rand.Source  |
+| `Sort`            | ✓      | ✓      |        |      | n⋅log(n) | Sort works similar to sort.SliceType(). However, unlike sort.SliceType the slice returned will be reallocated as to not modify the input slice.  |
+| `SortStableUsing` | ✓      |        | ✓      |      | n⋅log(n) | SortStableUsing works similar to sort.SliceStable. However, unlike sort.SliceStable the slice returned will be reallocated as to not modify the input slice.  |
+| `SortUsing`       | ✓      |        | ✓      |      | n⋅log(n) | SortUsing works similar to sort.Slice. However, unlike sort.Slice the slice returned will be reallocated as to not modify the input slice.  |
+| `Strings`         | ✓      | ✓      | ✓      |      | n        | Strings transforms each element to a string.  |
+| `Sum`             |        | ✓      |        |      | n        | Sum is the sum of all of the elements.  |
+| `Top`             | ✓      | ✓      | ✓      |      | n        | Top will return n elements from head of the slice if the slice has less elements then n that'll return all elements if n < 0 it'll return empty slice.  |
+| `ToStrings`       | ✓      | ✓      | ✓      |      | n        | ToStrings transforms each element to a string.  |
+| `Unique`          | ✓      | ✓      |        |      | n        | Unique returns a new slice with all of the unique values.  |
+| `Values`          |        |        |        | ✓    | n        | Values returns the values in the map.  |
+
+## Abs
+
+Abs is a function which returns the absolute value of all the
+elements in the slice.
+
+## All
+
+All will return true if all callbacks return true. It follows the same logic
+as the all() function in Python.
+
+If the list is empty then true is always returned.
+
+## Any
+
+Any will return true if any callbacks return true. It follows the same logic
+as the any() function in Python.
+
+If the list is empty then false is always returned.
+
+## Append
+
+Append will return a new slice with the elements appended to the end.
+
+It is acceptable to provide zero arguments.
+
+## AreSorted
+
+AreSorted will return true if the slice is already sorted. It is a wrapper
+for sort.SliceTypeAreSorted.
+
+## AreUnique
+
+AreUnique will return true if the slice contains elements that are all
+different (unique) from each other.
+
+## Average
+
+Average is the average of all of the elements, or zero if there are no
+elements.
+
+## Bottom
+
+Bottom will return n elements from bottom
+
+that means that elements is taken from the end of the slice
+for this [1,2,3] slice with n == 2 will be returned [3,2]
+if the slice has less elements then n that'll return all elements
+if n < 0 it'll return empty slice.
+
+## Contains
+
+Contains returns true if the element exists in the slice.
+
+When using slices of pointers it will only compare by address, not value.
+
+## Diff
+
+Diff returns the elements that needs to be added or removed from the first
+slice to have the same elements in the second slice.
+
+The order of elements is not taken into consideration, so the slices are
+treated sets that allow duplicate items.
+
+The added and removed returned may be blank respectively, or contain upto as
+many elements that exists in the largest slice.
+
+## Each
+
+Each is more condensed version of Transform that allows an action to happen
+on each elements and pass the original slice on.
+
+  cars.Each(func (car *Car) {
+      fmt.Printf("Car color is: %s\n", car.Color)
+  })
+
+Pie will not ensure immutability on items passed in so they can be
+manipulated, if you choose to do it this way, for example:
+
+  // Set all car colors to Red.
+  cars.Each(func (car *Car) {
+      car.Color = "Red"
+  })
+
+
+## Extend
+
+Extend will return a new slice with the slices of elements appended to the
+end.
+
+It is acceptable to provide zero arguments.
+
+## Filter
+
+Filter will return a new slice containing only the elements that return
+true from the condition. The returned slice may contain zero elements (nil).
+
+FilterNot works in the opposite way of Filter.
+
+## FilterNot
+
+FilterNot works the same as Filter, with a negated condition. That is, it will
+return a new slice only containing the elements that returned false from the
+condition. The returned slice may contain zero elements (nil).
+
+## First
+
+First returns the first element, or zero. Also see FirstOr().
+
+## FirstOr
+
+FirstOr returns the first element or a default value if there are no
+elements.
+
+## Float64s
+
+Float64s transforms each element to a float64.
+
+## Intersect
+
+Intersect returns items that exist in all lists.
+
+It returns slice without any duplicates.
+If zero slice arguments are provided, then nil is returned.
+
+## Ints
+
+Ints transforms each element to an integer.
+
+## Join
+
+Join returns a string from joining each of the elements.
+
+## JSONString
+
+JSONString returns the JSON encoded array as a string.
+
+One important thing to note is that it will treat a nil slice as an empty
+slice to ensure that the JSON value return is always an array.
+
+## Keys
+
+Keys returns the keys in the map. All of the items will be unique.
+
+Due to Go's randomization of iterating maps the order is not deterministic.
+
+## Last
+
+Last returns the last element, or zero. Also see LastOr().
+
+## LastOr
+
+LastOr returns the last element or a default value if there are no elements.
+
+## Len
+
+Len returns the number of elements.
+
+## Map
+
+Map will return a new slice where each element has been mapped (transformed).
+The number of elements returned will always be the same as the input.
+
+Be careful when using this with slices of pointers. If you modify the input
+value it will affect the original slice. Be sure to return a new allocated
+object or deep copy the existing one.
+
+## Max
+
+Max is the maximum value, or zero.
+
+## Median
+
+Median returns the value separating the higher half from the lower half of a
+data sample.
+
+Zero is returned if there are no elements in the slice.
+
+## Min
+
+Min is the minimum value, or zero.
+
+## Product
+
+Product is the product of all of the elements.
+
+## Random
+
+Random returns a random element by your rand.Source, or zero
+
+## Reduce
+
+Reduce continually applies the provided function
+over the slice. Reducing the elements to a single value.
+
+Returns a zero value of ElementType if there are no elements in the slice. It will panic if the reducer is nil and the slice has more than one element (required to invoke reduce).
+Otherwise returns result of applying reducer from left to right.
+
+## Reverse
+
+Reverse returns a new copy of the slice with the elements ordered in reverse.
+This is useful when combined with Sort to get a descending sort order:
+
+  ss.Sort().Reverse()
+
+
+## Send
+
+Send sends elements to channel
+in normal act it sends all elements but if func canceled it can be less
+
+it locks execution of gorutine
+it doesn't close channel after work
+returns sended elements if len(this) != len(old) considered func was canceled
+
+## Sequence
+
+Sequence generates all numbers in range or returns nil if params invalid
+
+There are 3 variations to generate:
+		1. [0, n).
+	2. [min, max).
+	3. [min, max) with step.
+
+if len(params) == 1 considered that will be returned slice between 0 and n,
+where n is the first param, [0, n).
+if len(params) == 2 considered that will be returned slice between min and max,
+where min is the first param, max is the second, [min, max).
+if len(params) > 2 considered that will be returned slice between min and max with step,
+where min is the first param, max is the second, step is the third one, [min, max) with step,
+others params will be ignored
+
+## SequenceUsing
+
+SequenceUsing generates slice in range using creator function
+
+There are 3 variations to generate:
+		1. [0, n).
+	2. [min, max).
+	3. [min, max) with step.
+
+if len(params) == 1 considered that will be returned slice between 0 and n,
+where n is the first param, [0, n).
+if len(params) == 2 considered that will be returned slice between min and max,
+where min is the first param, max is the second, [min, max).
+if len(params) > 2 considered that will be returned slice between min and max with step,
+where min is the first param, max is the second, step is the third one, [min, max) with step,
+others params will be ignored
+
+## Shuffle
+
+Shuffle returns shuffled slice by your rand.Source
+
+## Sort
+
+Sort works similar to sort.SliceType(). However, unlike sort.SliceType the
+slice returned will be reallocated as to not modify the input slice.
+
+See Reverse() and AreSorted().
+
+## SortStableUsing
+
+SortStableUsing works similar to sort.SliceStable. However, unlike sort.SliceStable the
+slice returned will be reallocated as to not modify the input slice.
+
+## SortUsing
+
+SortUsing works similar to sort.Slice. However, unlike sort.Slice the
+slice returned will be reallocated as to not modify the input slice.
+
+## Strings
+
+Strings transforms each element to a string.
+
+If the element type implements fmt.Stringer it will be used. Otherwise it
+will fallback to the result of:
+
+  fmt.Sprintf("%v")
+
+
+## Sum
+
+Sum is the sum of all of the elements.
+
+## Top
+
+Top will return n elements from head of the slice
+if the slice has less elements then n that'll return all elements
+if n < 0 it'll return empty slice.
+
+## ToStrings
+
+ToStrings transforms each element to a string.
+
+## Unique
+
+Unique returns a new slice with all of the unique values.
+
+The items will be returned in a randomized order, even with the same input.
+
+The number of items returned may be the same as the input or less. It will
+never return zero items unless then input slice has zero items.
+
+A slice with zero elements is considered to be unique.
+
+See AreUnique().
+
+## Values
+
+Values returns the values in the map.
+
+Due to Go's randomization of iterating maps the order is not deterministic.
 
 # FAQ
 
